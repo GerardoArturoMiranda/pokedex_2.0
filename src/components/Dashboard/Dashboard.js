@@ -5,9 +5,13 @@ import SearchBar from '../SearchBar/SearchBar';
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+
+
+
 export default function Dashboard() {
   const [pokemon, setPokemon] = useState([]);
   const [pokemonName, setPokemonName] = useState("");
+
   useEffect(() => {axios.get(`https://pokeapi.co/api/v2/pokemon`)
   .then(res => {
     const data = res.data.results;
