@@ -8,7 +8,6 @@ import axios from 'axios';
 export default function Dashboard() {
   const [pokemon, setPokemon] = useState([]);
 
-  
   useEffect(() => {axios.get(`https://pokeapi.co/api/v2/pokemon`)
   .then(res => {
     const data = res.data.results;
@@ -17,6 +16,7 @@ export default function Dashboard() {
     } 
   })}, [pokemon])
 
+  
   return (
     <div className='container'>
         <section className="jumbotron text-center">

@@ -1,9 +1,13 @@
 import React from 'react'
 
-export default function SearchBar() {
+export default function SearchBar({ pokemonName, onNameChange }) {
+
+  const handleInputChange = useCallback(event => {
+    onNameChange(event.target.value)
+  }, [onNameChange])
   return (
     <div className='row w-100'>
-      <input></input>
+      <input onChange={handleInputChange} value={pokemonName}></input>
     </div>
   )
 }
