@@ -7,15 +7,29 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 export default function Dashboard() {
   const [pokemon, setPokemon] = useState([]);
-
+  const [pokemonName, setPokemonName] = useState("");
   useEffect(() => {axios.get(`https://pokeapi.co/api/v2/pokemon`)
   .then(res => {
     const data = res.data.results;
     if(data != undefined){
       setPokemon(data)
     } 
-  })}, [pokemon])
+  })}, [])
 
+  useEffect(() => {
+    var pokemonesFiltrados = pokemon.filter((pokemonInd) => pokemonInd.name == pokemonName)
+    if(pokemonesFiltrados.length != 0){
+      setPokemon(pokemonesFiltrados)
+    }else{
+        axios.get(`https://pokeapi.co/api/v2/pokemon`)
+    .then(res => {
+      const data = res.data.results;
+      if(data != undefined){
+        setPokemon(data)
+      } 
+    })
+    }
+  }, [pokemonName])
   
   return (
     <div className='container'>
@@ -30,7 +44,7 @@ export default function Dashboard() {
           </p>
         </div>
       </section>
-        <SearchBar></SearchBar>
+        <SearchBar pokemonName={pokemonName} onNameChange={setPokemonName}></SearchBar>
         <div className='row w-100 d-flex justify-content-center'>
             {pokemon.map((pkm) => <PokemonCard pkm={pkm}></PokemonCard>)}
         </div>
